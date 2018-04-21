@@ -4,9 +4,15 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const productsRoutes = require('./api/routes/products'); 
-const ordersRoutes = require('./api/routes/orders'); 
+const ordersRoutes = require('./api/routes/orders');
+
+
+mongoose.connect(
+  'mongodb://user_01:' + process.env.MONGO_ATLAS_PW + '@cluster-node-rest-shard-00-00-4lw3e.mongodb.net:27017,cluster-node-rest-shard-00-01-4lw3e.mongodb.net:27017,cluster-node-rest-shard-00-02-4lw3e.mongodb.net:27017/test?ssl=true&replicaSet=Cluster-Node-Rest-shard-0&authSource=admin'
+)
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
