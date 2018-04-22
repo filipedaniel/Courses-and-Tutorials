@@ -8,10 +8,25 @@ const Product = require('../models/products');
 // handling routes
 
 router.get('/', (req, res, next) => {
-  //Product.find().exec().then().catch();
-  res.status(200).json({
-    message: 'Handling GET request to /products'
-  });
+  Product
+    .find()
+    .exec()
+    .then(docs => {
+      console.log(docs);
+      if (docs.length > 0) 
+        res.status(200).jsonp(docs)
+      else
+        res.status(404).jsonp({
+          message: "No entry found"
+        })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).jsonp({
+        error: err
+      })
+    });
+  
 });
 
 router.post('/', (req, res, next) => {
@@ -24,7 +39,7 @@ router.post('/', (req, res, next) => {
   product
     .save()
     .then(result => {
-      console.log(result);
+      // console.log(result);
       res.status(201).json({
         message: 'Handling POST request to /products',
         createdProduct: product
@@ -43,7 +58,7 @@ router.get('/:productId', (req, res, next) => {
   Product.findById(id)
     .exec()
     .then(doc => {
-      console.log("From database", doc);
+      // console.log("From database", doc);
       if (doc) {
         res.status(200).json(doc)
       } else {
@@ -60,15 +75,43 @@ router.get('/:productId', (req, res, next) => {
 });
 
 router.patch('/:productId', (req, res, next) => {
-  res.status(200).json({
-    message: 'Updated product!'
+  const id = req.params.productId;
+  const updateOps = {};
+  for (const ops of req.body) {
+    updateOps[ops.propName] = ops.value;
+  }
+  console.log(updateOps);
+  Product.update(
+    { _id : id },
+    { $set : updateOps }
+  )
+  .exec()
+  .then(result => {
+    console.log(result);
+    res.status(200).jsonp({ result });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).jsonp({
+      error: err
+    })
   });
 });
 
 router.delete('/:productId', (req, res, next) => {
-  res.status(200).json({
-    message: 'Deleted product!'
-  });
+  const id = req.params.productId;
+  Product
+    .remove({ _id: id })
+    .exec()
+    .then(result => {
+      res.status(200).jsonp({ result })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).jsonp({
+        error: err
+      });
+    });
 });
 
 
