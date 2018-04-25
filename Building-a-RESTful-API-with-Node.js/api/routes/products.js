@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
             price: doc.price,
             request: {
               type: 'GET',
-              urk: '/products/' + doc._id
+              url: '/products/' + doc._id
             }
           }
         })
