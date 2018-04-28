@@ -9,6 +9,10 @@ const mongoose = require('mongoose');
 const productsRoutes = require('./api/routes/products'); 
 const ordersRoutes = require('./api/routes/orders');
 
+var swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger.json');
+
+
 
 mongoose.connect(
   'mongodb://user_01:' + process.env.MONGO_ATLAS_PW + '@cluster-node-rest-shard-00-00-4lw3e.mongodb.net:27017,cluster-node-rest-shard-00-01-4lw3e.mongodb.net:27017,cluster-node-rest-shard-00-02-4lw3e.mongodb.net:27017/test?ssl=true&replicaSet=Cluster-Node-Rest-shard-0&authSource=admin'
@@ -30,6 +34,9 @@ app.use((req, res, next) => {
   next();
 })
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 // use: middleware
 app.use('/products', productsRoutes);
 
@@ -49,5 +56,7 @@ app.use((error, req, res, next) => {
     }
   })
 });
+
+
 
 module.exports = app;
