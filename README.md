@@ -6,6 +6,7 @@ Code of all the courses and tutorials thay I try in my free time.
 
 * [Essentials in JavaScript ES6](https://www.udemy.com/essentials-in-javascript-es6) - Udemy Essentials in JavaScript ES6
 * Groovy Fundamentals - Pluralsight Groovy-fundamentals
+* The Go Programming Language - Pluralsight
 
 #### Tutorials
 
