@@ -14,6 +14,7 @@ Code of all the courses and tutorials thay I try in my free time.
 #### Videos
 
 * [Building a RESTful API with Node.js](https://www.youtube.com/watch?v=0oXYLzuucwE&list=PL55RiY5tL51q4D-B63KBnygU6opNPFk_q)
+* [Angular - Node - MongoDB & Express (MEAN) Tutorial for Beginners](https://www.youtube.com/watch?v=1tRLveSyNz8)
 
 #### Others
 
