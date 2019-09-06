@@ -2,6 +2,12 @@
   <h2>Upcomming Angular Events!</h2>
   <hr>
   <div class="event-list">
-    <app-event-thumbnail *ngFor="let event of events" [event]="event"></app-event-thumbnail>
+    <div class="row">
+      <app-event-thumbnail
+        *ngFor="let event of events"
+        [event]="event"
+        class="col-6"></app-event-thumbnail>
+        <!-- (click)="handleThumbnailClick(event.name)" -->
+      </div>
   </div>
 </div>
