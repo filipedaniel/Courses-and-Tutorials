@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IEvent } from './shared/event.model';
 // import { EventEmitter } from 'events';
 
 
@@ -29,7 +30,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export class EventThumbnailComponent {
   // ways to cominicate between components: Input, output and template variables!
-  @Input() event: any;
+  @Input() event: IEvent;
 
   constructor() { }
 
