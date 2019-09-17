@@ -17,6 +17,8 @@ import { AppRoutes } from './app-routing';
 import { NavbarComponent } from './nav/navbar.component';
 import { ToastrService } from './common/toastr.service';
 import { Error404Component } from './errors/404.component';
+import { AuthService } from './user/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -34,11 +36,14 @@ import { Error404Component } from './errors/404.component';
   // importing a modules makes all yours exports declarations available on this one
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes)
   ],
   // import services
   providers: [
     EventService,
+    AuthService,
     ToastrService,
     EventRouteActivatorService,
     { provide: 'canDeactivateCreatEvent', useValue: checkDirtyState },

@@ -1,31 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from '../common/toastr.service';
+import { EventService } from './shared';
 
 @Component({
   selector: 'app-create-event',
-  template: `
-    <h1>New Event</h1>
-    <hr>
-    <div class="col-6">
-      <h3>[Create Event Form will go here]</h3>
-      <br>
-      <br>
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
-    </div>
-  `
+  templateUrl: './create-event.component.html',
+  styles: [`
+  em { float: right; color: #e05c65; paffing-left: 10px; }
+  .error: { backbground-color: #e3c3c5; }
+`]
 })
 
 export class EventCreateComponent implements OnInit {
   isDirty: boolean = true;
+  newEvent;
+
   constructor(
-    private router: Router) { }
+    private router: Router,
+    private eventService: EventService) { }
 
   ngOnInit() { }
 
   cancel() {
     this.router.navigate(['/events']);
+  }
+
+  saveEvent(formValue) {
+    console.log(formValue);
+    this.eventService.saveEvent(formValue);
+    this.isDirty = false;
+    this.router.navigate(['events']);
   }
 
   // eventNotSave() {
