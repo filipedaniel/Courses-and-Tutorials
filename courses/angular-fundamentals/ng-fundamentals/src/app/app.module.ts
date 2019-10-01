@@ -9,10 +9,11 @@ import {
   EventThumbnailComponent,
   EventService,
   EventDetailsComponent,
-  EventRouteActivatorService,
+  // EventRouteActivatorService,
   EventsListResolverService,
   EventCreateComponent,
-  SessionListComponent
+  SessionListComponent,
+  EventResolverService
 } from './events/index';
 import { AppRoutes } from './app-routing';
 import { NavbarComponent } from './nav/navbar.component';
@@ -20,7 +21,8 @@ import { ToastrService } from './common/toastr.service';
 import { Error404Component } from './errors/404.component';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { CollapsibleWellComponent } from './common/collapsible-well.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   // add a components pipes or directive
@@ -32,7 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SessionListComponent,
     EventDetailsComponent,
     EventCreateComponent,
-    Error404Component
+    CollapsibleWellComponent,
+    Error404Component,
   ],
   // import other modules
   // importing a modules makes all yours exports declarations available on this one
@@ -40,14 +43,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    HttpClientModule
   ],
   // import services
   providers: [
     EventService,
     AuthService,
     ToastrService,
-    EventRouteActivatorService,
+    // EventRouteActivatorService,
+    EventResolverService,
     { provide: 'canDeactivateCreatEvent', useValue: checkDirtyState },
     EventsListResolverService
   ],
