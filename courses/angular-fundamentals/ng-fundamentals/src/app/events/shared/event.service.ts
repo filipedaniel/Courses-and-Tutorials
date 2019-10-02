@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable, of, pipe } from 'rxjs';
-import { IEvent } from './event.model';
+import { IEvent, ISession } from './event.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
@@ -29,14 +29,14 @@ export class EventService {
   }
 
   saveEvent(event) {
-    // event.id = 999;
+    
     event.session = [];
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-
+    
     return this.http.post<IEvent>('/api/events', event, options)
       .pipe(catchError(this.handleError<IEvent>('postEvent')));
     // event.id = 999;
@@ -44,7 +44,12 @@ export class EventService {
     // EVENTS.push(event);
   }
 
+  searchSessions(seachTerm: string): Observable<ISession[]> {
+    return this.http.get<ISession[]>('/api/events?search=' + seachTerm)
+      .pipe(catchError(this.handleError<ISession[]>('searchSessions')))
+  }
 
+  
   
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
