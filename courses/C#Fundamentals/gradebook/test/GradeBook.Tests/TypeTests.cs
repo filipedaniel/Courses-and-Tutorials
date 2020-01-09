@@ -3,16 +3,20 @@ using Xunit;
 
 namespace GradeBook.Tests
 {
+    public delegate string WriteLogDelegate(string logMessage);
+
     public class TypeTests
     {
+        private int count = 0;
+
         [Fact]
         public void GetBookReturnsDifferentObjects()
         {
             var book1 = GetBook("Name 1");
             var book2 = GetBook("Name 2");
 
-            Assert.Equal("Name 1", book1.GetName());
-            Assert.Equal("Name 2", book2.GetName());
+            Assert.Equal("Name 1", book1.Name);
+            Assert.Equal("Name 2", book2.Name);
     	    Assert.NotSame(book1, book2);
         }
 
@@ -34,7 +38,7 @@ namespace GradeBook.Tests
             var book = GetBook("Book 1");
             SetName(book, "New Name");
 
-            Assert.Equal("New Name", book.GetName());
+            Assert.Equal("New Name", book.Name);
         }
 
         [Fact]
@@ -43,7 +47,7 @@ namespace GradeBook.Tests
             var book = GetBook("Book 1");
             GetBookSetName(book,"New Name");
 
-            Assert.Equal("Book 1", book.GetName());
+            Assert.Equal("Book 1", book.Name);
         }
 
         [Fact]
@@ -52,7 +56,7 @@ namespace GradeBook.Tests
             var book = GetBook("Book 1");
             GetBookSetName(out book,"New Name");
 
-            Assert.Equal("New Name", book.GetName());
+            Assert.Equal("New Name", book.Name);
         }
 
         [Fact]
@@ -73,7 +77,33 @@ namespace GradeBook.Tests
             Assert.Equal("Jhon", name);
             Assert.Equal("JHON", nameUpper);
         }
+        
+        [Fact]
+        public void WriteLogDelegateCanPointToMethod()
+        {
+             WriteLogDelegate log = ReturnMessage;
+            //  log = new WriteLogDelegate(ReturnMessage);
+             log += ReturnMessage;
+             log += IncrementCount;
+             
+             var result = log("Hello!");
+
+            Assert.Equal(3, count);
+
+        }
         // ------
+
+        string IncrementCount(string message)
+        {
+            count++;
+            return message.ToLower();
+        }
+
+        string ReturnMessage(string message)
+        {
+            count++;
+            return message;
+        }
 
         private string MakeUppercase(string param)
         {
@@ -92,7 +122,7 @@ namespace GradeBook.Tests
 
         private void SetName(Book book, string name)
         {
-            book.SetName(name);
+            book.Name = name;
         }
 
         private void GetBookSetName(Book book, string name)

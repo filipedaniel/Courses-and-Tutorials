@@ -5,19 +5,11 @@ namespace GradeBook
 {
     public class Book
     {   
-        private string name;
-        private List<double> grades;
-
-        public Book(string name)
-        {
-            this.name = name;
-            this.grades = new List<double>();
-        }
-
+        // private string Name;
         public string Name
         {
             get;
-            private set;
+            set;
            /*  get
             {
                 return this.name;
@@ -33,6 +25,13 @@ namespace GradeBook
                     throw new ArgumentException($"Value is empty or null!");
                 }
             } */
+        }
+        private List<double> grades;
+
+        public Book(string name)
+        {
+            this.Name = name;
+            this.grades = new List<double>();
         }
 
         public void AddGrade(double value)
