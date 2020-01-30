@@ -8,6 +8,7 @@ namespace ACM.BL
 {
     public class Customer
     {
+        // Parameters
         public int CustomerId { get; private set; }
 
         public string EmailAddress { get; set; }
@@ -34,6 +35,50 @@ namespace ACM.BL
 
                 return fullName;
             }
+        }
+    
+        public static int InstanceCount { get; set; }
+
+        // Constructors
+        public Customer()
+        {
+
+        }
+
+        public Customer(int customerId)
+        {
+            CustomerId = customerId;
+        }
+
+        public bool Validate()
+        {
+            var isValid = true;
+
+            if (string.IsNullOrWhiteSpace(LastName)) isValid = false;
+            if (string.IsNullOrWhiteSpace(EmailAddress)) isValid = false;
+
+            return isValid;
+        }
+
+        public Customer Retrieve(int customerId)
+        {
+            // code here...
+
+            return new Customer();
+        }
+
+        public List<Customer> Retrieve()
+        {
+            // code here...
+
+            return new List<Customer>();
+        }
+
+        public bool Save()
+        {
+            // code here...
+
+            return true;
         }
     }
 }
