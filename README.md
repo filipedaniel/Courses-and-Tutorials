@@ -8,7 +8,10 @@ Code of all the courses and tutorials thay I try in my free time.
 * Groovy Fundamentals - Pluralsight Groovy-fundamentals
 * The Go Programming Language - Pluralsight
 * [Angular Authentication - Mastering the Basics](https://www.udemy.com/course/angular-authentication-tutorial-mastering-the-basics/)
+* Angular Fundamentals - Pluralsight
 * C# Fundamentals - Pluralsight
+* [Angular Tour of Heroes](https://angular.io/tutorial)
+
 
 #### Tutorials
 
