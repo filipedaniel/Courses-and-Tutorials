@@ -5,6 +5,9 @@ import { Header } from './components/Header';
 import { Home } from './components/Home';
 
 class App extends React.Component {
+  onGreet() {
+    alert("Hello!");
+  }
   render() {
     // let user = {
     //   name: "Anna",
@@ -15,12 +18,12 @@ class App extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <Header/>
+            <Header homeLink="Home"/>
           </div>
         </div>
         <div className="row">
           <div className="col-12">
-            <Home name={"Max"} age={20}>
+            <Home name={"Max"} initialAge={20} greet={this.onGreet}>
               <p>This is a children paragraph!</p>
             </Home>
           </div>
