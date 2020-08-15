@@ -5,52 +5,76 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: "Max", age: 22 },
-      { name: "Manu", age: 23 }
-    ]
+      { id: 1, name: "Max", age: 22 },
+      { id: 2, name: "Manu", age: 23 },
+      { id: 3, name: "Manuel", age: 24 }
+    ],
+    showPersons: false
   }
 
-  nameChageHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: "Max", age: 22 },
-        { name: event.target.value, age: 23 }
-      ]
-    })
+  nameChagedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex( p => p.id === id);
+    const person = {...this.state.persons[personIndex]};
+    person.name = event.target.value;
+    
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+    console.log(persons);
+    this.setState({persons: persons})
   }
 
-  switchNameHandler = (newName) => {
+  deletePersonHandler = (index) => {
+    // create a copy of persons
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(index,1);
+    this.setState({persons: persons});
+  }
+
+  tooglePersonsHandler = () => {
     this.setState({
-      persons: [
-        { name: newName, age: 22 },
-        { name: "Manu new", age: 23 }
-      ]
+      showPersons: !this.state.showPersons
     })
   }
 
   render() {
     const style = {
-      backgroundColor: "white",
+      backgroundColor: "green",
+      color: "white",
       font: "inherit",
       border: "1px solid blue",
       padding: "8px",
       cursor: "pointer"
     };
 
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          { this.state.persons.map( (person, index) => {
+            return (
+              <Person
+                key={person.id}
+                name={person.name}
+                age={person.age}
+                click={() => this.deletePersonHandler(index)}
+                changed={(event) => this.nameChagedHandler(event,person.id)}/>
+            )
+          }) }
+        </div>
+      )
+      style.backgroundColor="red";
+    }
+
     return (
       <div className="App">
         <h1>Hi I'm a React App!</h1>
         <button 
           style={style}
-          onClick={() => this.switchNameHandler("New Name 2!")}>Switch Name</button>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          click={this.switchNameHandler.bind(this, "New Name!")} />
-        <Person 
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          changed={this.nameChageHandler}>My Hobbies: Racing</Person>
+          onClick={this.tooglePersonsHandler}>Toogle Persons</button>
+
+        { persons }
       </div>
     );
   }
