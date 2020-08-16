@@ -2,7 +2,7 @@ import React from 'react'
 // import Radium from 'radium';
 // import styled from 'styled-components';
 
-import './Person.css'
+import classes from './Person.css'
 
 
 // const StyledDiv = styled.div`
@@ -28,7 +28,7 @@ const Person = (props) => {
   // }
 
   return (
-    <div className="Person">
+    <div className={classes.Person}>
     {/* <StyledDiv> */}
       <p onClick={props.click}>I'm {name} and I'm {age} years old!</p>
       <p>{props.children}</p>
