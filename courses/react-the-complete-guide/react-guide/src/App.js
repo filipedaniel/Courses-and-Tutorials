@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classes from './App.css';
+import ErrorBoundary from './ErrorBoundary';
 
 import Person from './Person/Person';
 // import Radium, { StyleRoot } from 'radium';
@@ -61,12 +62,14 @@ class App extends Component {
         <div>
           { this.state.persons.map( (person, index) => {
             return (
-              <Person
-                key={person.id}
-                name={person.name}
-                age={person.age}
-                click={() => this.deletePersonHandler(index)}
-                changed={(event) => this.nameChagedHandler(event,person.id)}/>
+              <ErrorBoundary key={person.id}>
+                <Person
+                  key={person.id}
+                  name={person.name}
+                  age={person.age}
+                  click={() => this.deletePersonHandler(index)}
+                  changed={(event) => this.nameChagedHandler(event,person.id)}/>
+                </ErrorBoundary>
             )
           }) }
         </div>
@@ -78,7 +81,6 @@ class App extends Component {
       //   color: 'black'
       // }
     }
-    console.log(btnClass);
 
     const assignClasses = [];
     if (this.state.persons.length <= 2) {

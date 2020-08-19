@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 // import Radium from 'radium';
 // import styled from 'styled-components';
 
@@ -26,6 +26,12 @@ const Person = (props) => {
   //     width: "450px"
   //   }
   // }
+
+  const rnd = Math.random();
+  console.log(rnd);
+  if (rnd > 0.7) {
+    throw new Error("Something went wrong!");
+  }
 
   return (
     <div className={classes.Person}>
